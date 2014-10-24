@@ -1,0 +1,22 @@
+---
+- name: Add collectd ppa for precise
+  apt_repository: repo='ppa:vbulax/collectd5' state=present
+  sudo: yes
+
+- name: Install collectd
+  apt:
+    pkg: "collectd"
+    state: latest
+    update_cache: yes
+    cache_valid_time: 60
+  sudo: yes
+
+- name: Drop in minimum viable collectd.conf
+  template:
+    src: "collectd.conf.j2"
+    dest: "/etc/collectd/collectd.conf"
+    owner: "root"
+    group: "root"
+    mode: "0600"
+  sudo: yes
+  notify: restart collectd

@@ -1,0 +1,32 @@
+FQDNLookup true
+LoadPlugin battery
+LoadPlugin cpu
+LoadPlugin df
+LoadPlugin disk
+LoadPlugin interface
+LoadPlugin irq
+LoadPlugin load
+LoadPlugin memory
+LoadPlugin processes
+LoadPlugin swap
+
+LoadPlugin syslog
+<Plugin syslog>
+        LogLevel info
+</Plugin>
+
+LoadPlugin "write_graphite"
+<Plugin "write_graphite">
+ <Node "{{ ansible_hostname }}">
+   Host "{{ carbon_host }}"
+   Port "{{ carbon_port }}"
+   Prefix "collectd.14d."
+   #Postfix ""
+   #Protocol "udp"
+   #LogSendErrors false
+   EscapeCharacter "{{ escape_character }}"
+   SeparateInstances true
+   StoreRates false
+   AlwaysAppendDS false
+ </Node>
+</Plugin>

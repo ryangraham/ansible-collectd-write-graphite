@@ -1,0 +1,6 @@
+---
+- hosts: all
+
+- name: Install collectd with write_graphite plugin
+  roles:
+    - { role: collectd, tags: [ 'collectd' ] }
